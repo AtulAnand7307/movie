@@ -17,20 +17,34 @@ const nextConfig = {
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
   },
+  // ✅ Updated experimental config
   experimental: {
-    appDir: true,
     serverComponentsExternalPackages: ["@prisma/client"],
+    // Remove appDir: true as it's no longer needed in Next.js 14
   },
-  // ✅ Fix: Prevent Next.js from treating API routes as static
+  // ✅ Fix for Prisma on Vercel
+  webpack: (config) => {
+    config.externals = [...config.externals, { '@prisma/client': '@prisma/client' }];
+    return config;
+  },
+  // ✅ Dynamic API routes configuration
   async headers() {
     return [
       {
         source: "/api/:path*",
         headers: [
-          { key: "Cache-Control", value: "no-store" },
+          { 
+            key: "Cache-Control", 
+            value: "no-store, max-age=0" 
+          },
         ],
       },
     ];
+  },
+  // ✅ Disable static optimization for API routes
+  api: {
+    bodyParser: false,
+    externalResolver: true,
   },
 };
 
