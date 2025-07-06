@@ -18,17 +18,25 @@ export default function Pagination({ currentPage, totalPages, genre }) {
       <button
         onClick={() => goToPage(currentPage - 1)}
         disabled={currentPage === 1}
-        className="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300 disabled:opacity-50"
+        className="px-4 py-2 rounded 
+                   bg-gray-200 text-gray-800 hover:bg-gray-300 
+                   dark:bg-gray-700 dark:text-gray-100 dark:hover:bg-gray-600
+                   disabled:opacity-50"
       >
         Previous
       </button>
-      <span className="font-semibold text-gray-700">
+
+      <span className="font-semibold text-gray-700 dark:text-gray-200">
         Page {currentPage} of {totalPages}
       </span>
+
       <button
         onClick={() => goToPage(currentPage + 1)}
         disabled={currentPage === totalPages}
-        className="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300 disabled:opacity-50"
+        className="px-4 py-2 rounded 
+                   bg-gray-200 text-gray-800 hover:bg-gray-300 
+                   dark:bg-gray-700 dark:text-gray-100 dark:hover:bg-gray-600
+                   disabled:opacity-50"
       >
         Next
       </button>
